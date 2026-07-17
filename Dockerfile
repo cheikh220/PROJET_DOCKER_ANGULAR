@@ -6,13 +6,13 @@ COPY package.json package-lock.json ./
  
 RUN npm ci 
 
-COPY .. 
+COPY . . 
 
 RUN npm run build -- --configuration production 
 
 FROM nginx:alpine
 
-COPY --from-build /app/dist/projet-docker-angular/browser /user/share/nginx/html
+COPY --from=build /app/dist/projet-docker-angular/browser /user/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/delfault.conf
 
