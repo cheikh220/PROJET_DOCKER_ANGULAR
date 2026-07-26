@@ -3,17 +3,20 @@ FROM node:22-alpine AS build
 WORKDIR /app
 
 COPY package.json package-lock.json ./
- 
-RUN npm ci 
 
-COPY . . 
+RUN npm ci
 
-RUN npm run build -- --configuration production 
+COPY . .
+
+RUN npm run build -- --configuration production
+
 
 FROM nginx:alpine
 
-COPY --from=build /app/dist/projet-docker-angular/browser /user/share/nginx/html
+COPY --from=build /app/dist/PROJET_DOCKER_ANGULAR /usr/share/nginx/html
 
-COPY nginx.conf /etc/nginx/conf.d/delfault.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
+
+CMD ["nginx","-g","daemon off;"]
