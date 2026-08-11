@@ -54,6 +54,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "allowedHosts": [
+              "phoniness-buffed-cloning.ngrok-free.dev"
+            ]
+          },
           "configurations": {
             "production": {
               "buildTarget": "PROJET_DOCKER_ANGULAR:build:production"
